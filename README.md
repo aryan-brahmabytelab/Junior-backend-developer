@@ -60,14 +60,15 @@ Implement a secure authentication system with user roles.
 - Design a `User` database model using SQLAlchemy that includes a `role` field. Roles should be either `admin` or `user`.
 - Implement the following endpoints:
 
-  | Method | Endpoint | Description |
-  |---|---|---|
-  | `POST` | `/auth/signup` | Accept user credentials, hash the password, and store the user with an assigned role |
-  | `POST` | `/auth/login` | Verify credentials and return a JWT token signed with HS256, with the user's role embedded in the token payload |
+  | Method | Endpoint       | Description                                                                                                     |
+  | ------ | -------------- | --------------------------------------------------------------------------------------------------------------- |
+  | `POST` | `/auth/signup` | Accept user credentials, hash the password, and store the user with an assigned role                            |
+  | `POST` | `/auth/login`  | Verify credentials and return a JWT token signed with HS256, with the user's role embedded in the token payload |
 
 - Implement a **reusable FastAPI dependency** that can restrict access to any route based on the user's role.
 
 **Constraints:**
+
 - Passwords must never be stored in plain text.
 - The JWT token must include an expiry.
 - Role checks must be enforced via a dependency, not hardcoded per route.
@@ -90,6 +91,7 @@ Build a real-time chat system secured with JWT authentication.
   3. **On disconnection:** Clean up the connection gracefully.
 
 **Constraints:**
+
 - Unauthenticated connections must be rejected.
 - Multiple rooms must be supported simultaneously.
 - Messages must persist in PostgreSQL.
@@ -112,16 +114,17 @@ Design and implement the full database layer for the application.
 
 - Define the following SQLAlchemy models:
 
-  | Model | Required Fields |
-  |---|---|
-  | `User` | id, username, email, hashed password, role |
-  | `Room` | id, name, description, created_at |
+  | Model     | Required Fields                                    |
+  | --------- | -------------------------------------------------- |
+  | `User`    | id, username, email, hashed password, role         |
+  | `Room`    | id, name, description, created_at                  |
   | `Message` | id, content, timestamp, user_id (FK), room_id (FK) |
 
 - Define proper **relationships** between models (e.g., a Room has many Messages, a User has many Messages).
 - Implement **cursor-based pagination** when fetching message history for a room — do not use offset-based pagination.
 
 **Constraints:**
+
 - Use SQLAlchemy ORM — raw SQL queries are not acceptable.
 - Foreign key constraints must be enforced at the database level.
 
@@ -141,26 +144,6 @@ Implement **one** of the following features and document your choice in the READ
 
 ---
 
-## 📁 Expected Project Structure
-
-Your submission should follow a structure similar to this:
-
-```
-chat-app/
-├── app/
-│   ├── main.py
-│   ├── database.py
-│   ├── models.py
-│   ├── schemas.py
-│   ├── auth.py
-│   └── routers/
-│       ├── auth.py
-│       └── chat.py
-├── .env.example
-├── requirements.txt
-└── README.md
-```
-
 ---
 
 ## 📝 Submission Checklist
@@ -178,14 +161,14 @@ Before submitting, make sure:
 
 ## ⚖️ Evaluation Criteria
 
-| Area | What We Look For |
-|---|---|
-| **Correctness** | Does the application work as described? |
-| **Code Quality** | Is the code readable, organized, and consistent? |
-| **Security** | Are passwords hashed? Is JWT handled correctly? Are routes protected? |
-| **Database Design** | Are models well-structured with proper relationships? |
-| **Error Handling** | Are edge cases handled gracefully (bad token, missing room, etc.)? |
-| **Documentation** | Is the README clear enough for someone to run the project? |
+| Area                | What We Look For                                                      |
+| ------------------- | --------------------------------------------------------------------- |
+| **Correctness**     | Does the application work as described?                               |
+| **Code Quality**    | Is the code readable, organized, and consistent?                      |
+| **Security**        | Are passwords hashed? Is JWT handled correctly? Are routes protected? |
+| **Database Design** | Are models well-structured with proper relationships?                 |
+| **Error Handling**  | Are edge cases handled gracefully (bad token, missing room, etc.)?    |
+| **Documentation**   | Is the README clear enough for someone to run the project?            |
 
 ---
 
